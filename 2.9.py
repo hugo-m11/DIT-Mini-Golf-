@@ -1,34 +1,41 @@
-
 import pygame
-import sys
-import math
 
-# pygame setup
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 dt = 0
+player_pos = pygame.Vector2(150, 350)
+ball_velocity = [0, 0]
+friction = 0.98
 
-screen.fill("green")
-ball_pos = [150, 350]
-ball_radius = 20
-WHITE = (255, 255, 255)
+#the coordinates of each hole 
+hole_placements = [["hole 1", 1150,350]
+                   
+                   ]
 
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
+# all code should happen in here, this is what happens when you run the program 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    pygame.draw.circle(screen, WHITE, (int(ball_pos[0]), int(ball_pos[1])), ball_radius)
-    pygame.display.update()
-    clock.tick(60)
+
+    #makes the window green (to mimic a golf green)
+    screen.fill("green")
+    golf_ball = pygame.draw.circle(screen, "white", player_pos, 10)
+    #places the hole on each level 
+    for hole in hole_placements:
+        pygame.draw.circle(screen, "black", (hole[1],hole[2]),16)
+    
+
+
+
+
 
 
     
-    
-pygame.display.flip()
-dt = clock.tick(60) / 1000
+    pygame.display.flip()
+    dt = clock.tick(60) / 1000
 
 pygame.quit()
