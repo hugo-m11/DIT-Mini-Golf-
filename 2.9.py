@@ -1,11 +1,13 @@
 import pygame
-import math  
+import math 
+import button 
 
 pygame.init()
 WIDTH,HEIGHT = 1280,720
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 clock = pygame.time.Clock()
 running = True
+game_paused = False
 dt = 0
 player_pos = pygame.Vector2(150, 350)
 ball_velocity = [0, 0]
@@ -14,23 +16,42 @@ max_power = 10
 is_dragging = False
 start_drag_pos = None
 ball_radius = 10 
-
-
-#the coordinates of each hole 
+font = pygame.font.SysFont("arialBlack", 20)
+TEXT_COLOUR = [255, 255, 255]
 hole_placements = [["hole 1", 1150,350]
                    
                    ]
+#defines a function that allows me to use text 
+def draw_text (text, font, text_col, x, y):
+    img = font.render(text, True, text_col)
+    screen.blit(img, (x, y))
 
 
 # all code should happen in here, this is what happens when you run the program 
 
+
+
 while running:
-    for event in pygame.event.get():
-#checks if the program has been quit 
+
+#makes the window green (to mimic a golf green)
+    screen.fill("green")
+    golf_ball = pygame.draw.circle(screen, "white", player_pos, 10)
+#puts the text on the screen
+    if game_paused == True:
+        pass
+    else: 
+        draw_text("Press SPACE to pause the game", font, TEXT_COLOUR, 20, 20)
+    
+    for event in pygame.event.get(): 
         if event.type == pygame.QUIT:
             running = False
-#this checks if the user clicks on the ball, and starts a drag action 
 
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                game_paused = True
+        
+
+#this checks if the user clicks on the ball, and starts a drag action 
         if event.type == pygame.MOUSEBUTTONDOWN:
                 if math.sqrt((event.pos[0] - player_pos[0])**2 + (event.pos[1] - player_pos[1])**2) < ball_radius * 2:
                     is_dragging = True
@@ -85,10 +106,7 @@ while running:
         ball_velocity[1]*=-0.5
         
 
-    #makes the window green (to mimic a golf green)
-    screen.fill("green")
     
-    golf_ball = pygame.draw.circle(screen, "white", player_pos, 10)
     
     #places the hole on each level 
     for hole in hole_placements:
