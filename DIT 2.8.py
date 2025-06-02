@@ -46,7 +46,7 @@ def check_win():
 
 while running:
 
-    screen.fill("green")
+    screen.fill(pygame.Color(13, 219, 68))
     #places the hole on each level 
     for hole in hole_placements:
         hole_pos = (hole[1], hole[2])
