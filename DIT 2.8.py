@@ -45,8 +45,20 @@ def check_win():
 # all code should happen in here, this is what happens when you run the program 
 
 while running:
-#makes the window green (to mimic a golf green)
+
     screen.fill("green")
+    #places the hole on each level 
+    for hole in hole_placements:
+        hole_pos = (hole[1], hole[2])
+        hole_radius = 20
+        pygame.draw.circle(screen, "black", (hole[1],hole[2]),20)
+
+        if check_win():
+            player_pos = pygame.Vector2(150, 350)
+            ball_velocity = [0, 0]
+
+#makes the window green (to mimic a golf green)
+    
     golf_ball = pygame.draw.circle(screen, "white", player_pos, 9)
 #puts the text on the screen
     if game_paused == True:
@@ -126,15 +138,6 @@ while running:
             ball_velocity[1]*=-0.5
         
         
-    #places the hole on each level 
-    for hole in hole_placements:
-        hole_pos = (hole[1], hole[2])
-        hole_radius = 20
-        pygame.draw.circle(screen, "black", (hole[1],hole[2]),20)
-
-        if check_win():
-            player_pos = pygame.Vector2(150, 350)
-            ball_velocity = [0, 0]
 
 
     
