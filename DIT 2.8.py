@@ -30,12 +30,12 @@ levels = [
     {
         "hole_pos": (800, 600),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(400, 300, 200, 20)]
+        "obstacles": [pygame.Rect(400, 300, 200, 400)]
     },
     {
         "hole_pos": (1100, 70),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(400, 30, 200, 20)]
+        "obstacles": [pygame.Rect(400, 200, 200, 20)]
     }
 ]
 
@@ -61,29 +61,50 @@ def check_win():
 # all code should happen in here, this is what happens when you run the program 
 
 while running:
+    screen.fill(pygame.Color(51, 171, 81))
 
     for obstacle in levels[current_level]["obstacles"]:
         pygame.draw.rect(screen, (120, 120, 120), obstacle)
 
-    for obstacle in levels[current_level]["obstacles"]:
-        if obstacle.collidepoint(player_pos):
-            ball_velocity[0] *= -0.5
-            ball_velocity[1] *= -0.5
+        closest_x = max(obstacle.left, min(player_pos.x, obstacle.right))
+        closest_y = max(obstacle.top, min(player_pos.y, obstacle.bottom))
+        
+        # Distance from ball center to closest point
+        distance_x = player_pos.x - closest_x
+        distance_y = player_pos.y - closest_y
+        distance = math.hypot(distance_x, distance_y)
+    
+        # Check if the ball overlaps the obstacle
+        if distance < BALL_RADIUS:
+            # Push the ball out in the direction away from the obstacle
+            overlap = BALL_RADIUS - distance
+            norm_x = distance_x / distance
+            norm_y = distance_y / distance
+            player_pos.x += norm_x * overlap
+            player_pos.y += norm_y * overlap
+
+            # Reflect the ball's velocity (simple bounce)
+            dot = ball_velocity[0] * norm_x + ball_velocity[1] * norm_y
+            ball_velocity[0] -= 2 * dot * norm_x
+            ball_velocity[1] -= 2 * dot * norm_y
+
+            # Apply energy loss on collision
+            ball_velocity[0] *= 0.5
+            ball_velocity[1] *= 0.5
 
     #makes the window green (to mimic a golf green)
-    screen.fill(pygame.Color(51, 171, 81))
-    hole_pos = levels[current_level]["hole_pos"]
-    hole_radius = 20
-    pygame.draw.circle(screen, "black", hole_pos, hole_radius - 2)
+hole_pos = levels[current_level]["hole_pos"]
+hole_radius = 20
+pygame.draw.circle(screen, "black", hole_pos, hole_radius - 2)
 
 # Check if player won the level
-    if check_win():
-        current_level += 1
-        if current_level >= len(levels):
-            running = False
-        else:
-            player_pos = pygame.Vector2(levels[current_level]["start_pos"])
-            ball_velocity = [0, 0]
+if check_win():
+    current_level += 1
+    if current_level >= len(levels):
+        running = False
+    else:
+        player_pos = pygame.Vector2(levels[current_level]["start_pos"])
+        ball_velocity = [0, 0]
 
 
     
