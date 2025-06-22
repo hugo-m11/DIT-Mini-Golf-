@@ -38,7 +38,7 @@ levels = [
     {
         "hole_pos": (1100, 70),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(400, 200, 200, 20)]
+        "obstacles": [pygame.Rect(400, 200, 700, 200)]
     }
 ]
 
@@ -56,7 +56,7 @@ def check_win():
     return distance < (hole_radius + 10) - BALL_RADIUS
 
 # Obstacle collision detection
-def resolve_obstacle_collision():
+def obstacle_collision():
     for obstacle in levels[current_level]["obstacles"]:
         closest_x = max(obstacle.left, min(player_pos.x, obstacle.right))
         closest_y = max(obstacle.top, min(player_pos.y, obstacle.bottom))
@@ -146,24 +146,27 @@ while running:
                         ball_velocity[1] = -(end_drag_pos[1] - start_drag_pos[1]) * 15 * dt * - 1
 
     if not game_paused:
-        substeps = 4
+        substeps = 9
         for _ in range(substeps):
             player_pos.x += ball_velocity[0] / substeps
             player_pos.y += ball_velocity[1] / substeps
 
-            # Obstacle collisions (every substep)
-            resolve_obstacle_collision()
+            #when the game is unpaused, this function checks for obstacle colliions 
+            obstacle_collision()
 
-            # Wall collisions
+            #checks for collsions on the left
             if player_pos.x < BALL_RADIUS:
                 player_pos.x = BALL_RADIUS
                 ball_velocity[0] *= -0.5
+            #checks for collsions on the right 
             if player_pos.x > WIDTH - BALL_RADIUS:
                 player_pos.x = WIDTH - BALL_RADIUS
                 ball_velocity[0] *= -0.5
+            #checks for collsions on the bottom      
             if player_pos.y < BALL_RADIUS:
                 player_pos.y = BALL_RADIUS
                 ball_velocity[1] *= -0.5
+            #checks for collsions on the top   
             if player_pos.y > HEIGHT - BALL_RADIUS:
                 player_pos.y = HEIGHT - BALL_RADIUS
                 ball_velocity[1] *= -0.5
