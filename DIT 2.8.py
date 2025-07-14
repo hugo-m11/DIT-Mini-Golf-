@@ -13,7 +13,7 @@ dt = 0
 player_score = 0 
 player_pos = pygame.Vector2(150, 350)
 ball_velocity = [0, 0]
-friction = 0.96
+friction = 0.97
 max_power = 8
 is_dragging = False
 start_drag_pos = None
@@ -28,17 +28,28 @@ levels = [
     { 
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": []
+        "obstacles": [pygame.Rect(100, 75, 1150, 25), pygame.Rect(1250, 75, 25, 550), pygame.Rect(100, 600, 1150, 25), pygame.Rect(75, 75, 25, 550)]
     },
     {
-        "hole_pos": (800, 600),
+        "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(400, 300, 200, 400)]
+        "obstacles": [pygame.Rect(100, 75, 1150, 25), pygame.Rect(1250, 75, 25, 550), pygame.Rect(100, 600, 1150, 25), pygame.Rect(75, 75, 25, 550), pygame.Rect(400, 300, 200, 200), pygame.Rect(900, 200, 100, 300)],
     },
     {
-        "hole_pos": (1100, 70),
+        "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(400, 200, 700, 200)]
+        "obstacles": [pygame.Rect(100, 75, 1150, 25), pygame.Rect(1250, 75, 25, 550), pygame.Rect(100, 600, 1150, 25), pygame.Rect(75, 75, 25, 550) ,pygame.Rect(400, 200, 700, 200)]
+    },
+    {
+        "hole_pos": (1150, 350),
+        "start_pos": (150, 350),
+        "obstacles": [pygame.Rect(100, 75, 1150, 25), pygame.Rect(1250, 75, 25, 550), pygame.Rect(100, 600, 1150, 25), pygame.Rect(75, 75, 25, 550), pygame.Rect(400, 300, 600, 200)]
+    },
+    {
+        "hole_pos": (1150, 350),
+        "start_pos": (150, 35),
+        "obstacles": [pygame.Rect(100, 75, 1150, 25), pygame.Rect(1250, 75, 25, 550), pygame.Rect(100, 600, 1150, 25), pygame.Rect(75, 75, 25, 550), pygame.Rect(800, 200, 190, 500)]
+
     }
 ]
 
@@ -146,10 +157,10 @@ while running:
                         ball_velocity[1] = -(end_drag_pos[1] - start_drag_pos[1]) * 15 * dt * - 1
 
     if not game_paused:
-        substeps = 9
-        for _ in range(substeps):
-            player_pos.x += ball_velocity[0] / substeps
-            player_pos.y += ball_velocity[1] / substeps
+        noclip_thingy = 9
+        for _ in range(noclip_thingy):
+            player_pos.x += ball_velocity[0] / noclip_thingy
+            player_pos.y += ball_velocity[1] / noclip_thingy
 
             #when the game is unpaused, this function checks for obstacle colliions 
             obstacle_collision()
