@@ -28,27 +28,27 @@ levels = [
     { 
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(100, 75, 1150, 25), pygame.Rect(1250, 75, 25, 550), pygame.Rect(100, 600, 1150, 25), pygame.Rect(75, 75, 25, 550)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540)]
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(100, 75, 1150, 25), pygame.Rect(1250, 75, 25, 550), pygame.Rect(100, 600, 1150, 25), pygame.Rect(75, 75, 25, 550), pygame.Rect(400, 300, 200, 200), pygame.Rect(900, 200, 100, 300)],
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(400, 300, 200, 200), pygame.Rect(900, 200, 100, 300)],
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(100, 75, 1150, 25), pygame.Rect(1250, 75, 25, 550), pygame.Rect(100, 600, 1150, 25), pygame.Rect(75, 75, 25, 550) ,pygame.Rect(400, 200, 700, 200)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540) ,pygame.Rect(400, 200, 700, 200)]
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(100, 75, 1150, 25), pygame.Rect(1250, 75, 25, 550), pygame.Rect(100, 600, 1150, 25), pygame.Rect(75, 75, 25, 550), pygame.Rect(400, 300, 600, 200)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(400, 300, 450, 200)]
     },
     {
         "hole_pos": (1150, 350),
-        "start_pos": (150, 35),
-        "obstacles": [pygame.Rect(100, 75, 1150, 25), pygame.Rect(1250, 75, 25, 550), pygame.Rect(100, 600, 1150, 25), pygame.Rect(75, 75, 25, 550), pygame.Rect(800, 200, 190, 500)]
+        "start_pos": (150, 350),
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(800, 200, 190, 200)]
 
     }
 ]
