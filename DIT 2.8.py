@@ -13,7 +13,7 @@ dt = 0
 player_score = 0 
 player_pos = pygame.Vector2(150, 350)
 ball_velocity = [0, 0]
-friction = 0.97
+friction = 0.975
 max_power = 8
 is_dragging = False
 start_drag_pos = None
@@ -43,12 +43,12 @@ levels = [
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(400, 300, 450, 200)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(600, 300, 150, 300), pygame.Rect(300, 540, 200, 300)]
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(800, 200, 190, 200)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(800, 200, 190, 200), pygame.Rect(350, 300, 100, 300)]
 
     }
 ]
@@ -112,6 +112,28 @@ while running:
             player_pos = pygame.Vector2(levels[current_level]["start_pos"])
             ball_velocity = [0, 0]
 
+    if is_dragging and start_drag_pos:
+        mouse_pos = pygame.mouse.get_pos()
+        dy = start_drag_pos[1] - mouse_pos[1]
+        dx = start_drag_pos[0] - mouse_pos[0]
+        distance = math.hypot(dx, dy)
+        power = min(distance / 10, max_power)
+
+        if distance != 0:
+            lenght_scale = min(distance, max_power * 20) / distance
+            end_x = player_pos.x + dx * lenght_scale
+            end_y = player_pos.y + dy * lenght_scale
+
+            indicator_colour = (0, 0, 0)
+            pygame.draw.line(screen, indicator_colour, (player_pos.x, player_pos.y), (end_x, end_y), 3)
+
+            num_dots = 15
+            for i in range(1, num_dots + 15):
+                joshharris = i / num_dots
+                dot_x = player_pos.x + (end_x - player_pos.x) * joshharris
+                dot_y = player_pos.y + (end_y - player_pos.y) * joshharris
+                pygame.draw.circle(screen, indicator_colour, (int(dot_x), int(dot_y)), 7)
+
     pygame.draw.circle(screen, "white", player_pos, 9)
 
     if game_paused:
@@ -157,7 +179,7 @@ while running:
                         ball_velocity[1] = -(end_drag_pos[1] - start_drag_pos[1]) * 15 * dt * - 1
 
     if not game_paused:
-        noclip_thingy = 9
+        noclip_thingy = 5
         for _ in range(noclip_thingy):
             player_pos.x += ball_velocity[0] / noclip_thingy
             player_pos.y += ball_velocity[1] / noclip_thingy
