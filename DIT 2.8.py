@@ -28,12 +28,12 @@ levels = [
     { 
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(300, 250, 400, 100), pygame.Rect(300, 300, 120, 300), pygame.Rect(400, 90, 110, 75), pygame.Rect(550, 180, 80, 75), pygame.Rect(750, 90, 500, 110)]
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(400, 300, 200, 200), pygame.Rect(900, 200, 100, 300)],
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(400, 300, 200, 200), pygame.Rect(900, 200, 100, 300)]
     },
     {
         "hole_pos": (1150, 350),
@@ -43,13 +43,23 @@ levels = [
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(600, 300, 150, 300), pygame.Rect(300, 540, 200, 300)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(600, 300, 150, 300), pygame.Rect(300, 140, 200, 300), pygame.Rect(700, 300, 300, 80)]
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(800, 200, 190, 200), pygame.Rect(350, 300, 100, 300)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(800, 200, 190, 200), pygame.Rect(350, 300, 100, 300), pygame.Rect(700, 450, 300, 100)]
 
+    },
+    {
+        "hole_pos": (1150, 350),
+        "start_pos": (150, 350),
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(200, 75, 300, 450), pygame.Rect(200, 75, 300, 450), pygame.Rect(500, 75, 450, 300), pygame.Rect(1000, 400, 250, 50)]
+    },
+    {
+         "hole_pos": (1150, 350),
+        "start_pos": (150, 350),
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540),]
     }
 ]
 
@@ -112,6 +122,7 @@ while running:
             player_pos = pygame.Vector2(levels[current_level]["start_pos"])
             ball_velocity = [0, 0]
 
+
     if is_dragging and start_drag_pos:
         mouse_pos = pygame.mouse.get_pos()
         dy = start_drag_pos[1] - mouse_pos[1]
@@ -132,7 +143,7 @@ while running:
                 joshharris = i / num_dots
                 dot_x = player_pos.x + (end_x - player_pos.x) * joshharris
                 dot_y = player_pos.y + (end_y - player_pos.y) * joshharris
-                pygame.draw.circle(screen, indicator_colour, (int(dot_x), int(dot_y)), 7)
+                pygame.draw.circle(screen, indicator_colour, (int(dot_x), int(dot_y)), 5)
 
     pygame.draw.circle(screen, "white", player_pos, 9)
 
@@ -207,8 +218,10 @@ while running:
         # Apply friction and stop when velocity is low
         ball_velocity[0] *= friction
         ball_velocity[1] *= friction
-        if abs(ball_velocity[0]) < 0.1 and abs(ball_velocity[1]) < 0.1:
+        if abs(ball_velocity[0]) < 0.01 and abs(ball_velocity[1]) < 0.01:
             ball_velocity = [0, 0]
+
+        
 
     pygame.display.flip()
     dt = clock.tick(120) / 1000
