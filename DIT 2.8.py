@@ -28,7 +28,7 @@ levels = [
     { 
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(300, 250, 400, 100), pygame.Rect(300, 300, 120, 300), pygame.Rect(400, 90, 110, 75), pygame.Rect(550, 180, 80, 75), pygame.Rect(750, 90, 500, 110)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540)]
     },
     {
         "hole_pos": (1150, 350),
@@ -49,7 +49,6 @@ levels = [
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
         "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(800, 200, 190, 200), pygame.Rect(350, 300, 100, 300), pygame.Rect(700, 450, 300, 100)]
-
     },
     {
         "hole_pos": (1150, 350),
@@ -57,9 +56,9 @@ levels = [
         "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(200, 75, 300, 450), pygame.Rect(200, 75, 300, 450), pygame.Rect(500, 75, 450, 300), pygame.Rect(1000, 400, 250, 50)]
     },
     {
-         "hole_pos": (1150, 350),
+        "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540),]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540),  pygame.Rect(300, 250, 400, 100), pygame.Rect(300, 300, 120, 300), pygame.Rect(400, 90, 110, 75), pygame.Rect(550, 180, 80, 75), pygame.Rect(750, 90, 500, 110), pygame.Rect(900, 200, 120, 300)]
     }
 ]
 
@@ -143,7 +142,7 @@ while running:
                 joshharris = i / num_dots
                 dot_x = player_pos.x + (end_x - player_pos.x) * joshharris
                 dot_y = player_pos.y + (end_y - player_pos.y) * joshharris
-                pygame.draw.circle(screen, indicator_colour, (int(dot_x), int(dot_y)), 5)
+                pygame.draw.circle(screen, indicator_colour, (int(dot_x), int(dot_y)), 8)
 
     pygame.draw.circle(screen, "white", player_pos, 9)
 
@@ -190,7 +189,7 @@ while running:
                         ball_velocity[1] = -(end_drag_pos[1] - start_drag_pos[1]) * 15 * dt * - 1
 
     if not game_paused:
-        noclip_thingy = 5
+        noclip_thingy = 9
         for _ in range(noclip_thingy):
             player_pos.x += ball_velocity[0] / noclip_thingy
             player_pos.y += ball_velocity[1] / noclip_thingy
