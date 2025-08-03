@@ -59,7 +59,22 @@ levels = [
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
         "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540),  pygame.Rect(300, 250, 400, 100), pygame.Rect(300, 300, 120, 300), pygame.Rect(400, 90, 110, 75), pygame.Rect(550, 180, 80, 75), pygame.Rect(750, 90, 500, 110), pygame.Rect(900, 200, 120, 300)]
-    }
+    },
+    {
+       "hole_pos": (1150, 350),
+        "start_pos": (150, 350),
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(90, 90, 925, 200), pygame.Rect(90, 415, 925, 185), pygame.Rect(1050, 300, 25, 100)]  
+    },
+    {
+        "hole_pos": (1150, 350),
+        "start_pos": (150, 350),
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(1050, 300, 25, 1000)]
+    },
+    {
+        "hole_pos": (1150, 350),
+        "start_pos": (150, 350),
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(1050, 90, 15, 225), pygame.Rect(1050, 380, 15, 225), pygame.Rect(800, 90, 15, 140), pygame.Rect(800, 300, 15, 300), pygame.Rect(550, 90, 15, 300), pygame.Rect(550, 450, 15, 160), pygame.Rect(300, 90, 15, 100), pygame.Rect(300, 250, 15, 350)]
+    },
 ]
 
 resume_image = pygame.image.load("button_resume.png").convert_alpha()
