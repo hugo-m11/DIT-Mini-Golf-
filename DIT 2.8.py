@@ -68,7 +68,7 @@ levels = [
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(1050, 300, 25, 1000)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(700, 300, 200, 300), pygame.Rect(700, 90, 200, 178)]
     },
     {
         "hole_pos": (1150, 350),
