@@ -21,7 +21,7 @@ BALL_RADIUS = 10
 font = pygame.font.SysFont("arialBlack", 20)
 TEXT_COLOUR = [255, 255, 255]
 current_level = 0
-game_over = False
+game_over = False 
 
 is_colliding = False
 
@@ -34,47 +34,56 @@ levels = [
     { 
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540)],
+        "text": "Hole 1, Par 1"
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(400, 300, 200, 200), pygame.Rect(900, 200, 100, 300)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(400, 300, 200, 200), pygame.Rect(900, 200, 100, 300)],
+        "text": "Hole 2, Par: 2"
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(600, 300, 150, 300), pygame.Rect(300, 140, 200, 300), pygame.Rect(700, 300, 300, 80)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(600, 300, 150, 300), pygame.Rect(300, 140, 200, 300), pygame.Rect(700, 300, 300, 80)],
+        "text": "Hole 3, Par: 4"
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(800, 200, 190, 200), pygame.Rect(350, 300, 100, 300), pygame.Rect(700, 450, 300, 100)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(800, 200, 190, 200), pygame.Rect(350, 300, 100, 300), pygame.Rect(700, 450, 300, 100)],
+        "text": "Hole 4, Par: 3"
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(200, 75, 300, 450), pygame.Rect(200, 75, 300, 450), pygame.Rect(500, 75, 450, 300), pygame.Rect(1000, 400, 250, 50)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(200, 75, 300, 450), pygame.Rect(200, 75, 300, 450), pygame.Rect(500, 75, 450, 300), pygame.Rect(1000, 400, 250, 50)],
+        "text": "Hole 5, Par: 5"
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540),  pygame.Rect(300, 250, 400, 100), pygame.Rect(300, 300, 120, 300), pygame.Rect(400, 90, 110, 75), pygame.Rect(550, 180, 80, 75), pygame.Rect(750, 90, 500, 110), pygame.Rect(900, 200, 120, 300)]
-    },
-    {
-       "hole_pos": (1150, 350),
-        "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(90, 90, 925, 200), pygame.Rect(90, 415, 925, 185), pygame.Rect(1050, 300, 25, 100)]  
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540),  pygame.Rect(300, 250, 400, 100), pygame.Rect(300, 300, 120, 300), pygame.Rect(400, 90, 110, 75), pygame.Rect(550, 180, 80, 75), pygame.Rect(750, 90, 500, 110), pygame.Rect(900, 200, 120, 300)],
+        "text": "Hole 6, Par: 7"
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(700, 300, 200, 300), pygame.Rect(700, 90, 200, 178), pygame.Rect(450, 90, 200, 178)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(90, 90, 925, 200), pygame.Rect(90, 415, 925, 185), pygame.Rect(1050, 300, 25, 100)],  
+        "text": "Hole 7, Par: 4"
     },
     {
         "hole_pos": (1150, 350),
         "start_pos": (150, 350),
-        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(1050, 90, 15, 225), pygame.Rect(1050, 380, 15, 225), pygame.Rect(800, 90, 15, 140), pygame.Rect(800, 300, 15, 300), pygame.Rect(550, 90, 15, 300), pygame.Rect(550, 450, 15, 160), pygame.Rect(300, 90, 15, 100), pygame.Rect(300, 250, 15, 350)]
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(700, 300, 200, 300), pygame.Rect(700, 90, 200, 178), pygame.Rect(450, 90, 200, 178)],
+        "text": "Hole 8, Par: 3"
+    },
+    {
+        "hole_pos": (1150, 350),
+        "start_pos": (150, 350),
+        "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(1050, 90, 15, 225), pygame.Rect(1050, 380, 15, 225), pygame.Rect(800, 90, 15, 140), pygame.Rect(800, 300, 15, 300), pygame.Rect(550, 90, 15, 300), pygame.Rect(550, 450, 15, 160), pygame.Rect(300, 90, 15, 100), pygame.Rect(300, 250, 15, 350)],
+        "text": "Hole 9, Par: 5"
     },
 ]
 
@@ -130,19 +139,12 @@ while running:
 
         if current_level >= len(levels):
             draw_text(f"|      Score: {player_score}", font, TEXT_COLOUR, 400, 20)
-            draw_text("   |     Course Par: 32" , font, TEXT_COLOUR, 550, 20)
+            draw_text("   |     Course Par: 31" , font, TEXT_COLOUR, 550, 20)
             
         else:
             player_pos = pygame.Vector2(levels[current_level]["start_pos"])
             ball_velocity = [0, 0]
 
-    if not game_over:
-        for obstacle in levels[current_level]["obstacles"]:
-            pygame.draw.rect(screen, (120, 120, 120), obstacle)
-        hole_pos = levels[current_level]["hole_pos"]
-    else:
-        draw_text(f"Score: {player_score}", font, TEXT_COLOUR, 400, 20)
-        draw_text("Course Par: 32", font, TEXT_COLOUR, 550, 20)
 
     if is_dragging and start_drag_pos:
         mouse_pos = pygame.mouse.get_pos()
@@ -176,12 +178,13 @@ while running:
             if quit_button.draw(screen):
                 running = False
     else:
-        rect = pygame.Rect(10, 15, 780, 40)
+        rect = pygame.Rect(10, 15, 995, 40)
         pygame.draw.rect(screen, "black", rect)
         draw_text("Press SPACE to pause the game", font, TEXT_COLOUR, 20, 20)
         draw_text(f"|      Score: {player_score}", font, TEXT_COLOUR, 400, 20)
-        draw_text("   |     Course Par: 32" , font, TEXT_COLOUR, 550, 20)
-
+        draw_text("   |     Course Par: 32     |" , font, TEXT_COLOUR, 550, 20)
+        draw_text(levels[current_level]["text"], font, TEXT_COLOUR, 850, 20)
+    
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT:
             running = False
@@ -194,6 +197,7 @@ while running:
                 if math.hypot(event.pos[0] - player_pos.x, event.pos[1] - player_pos.y) < BALL_RADIUS * 2:
                     is_dragging = True
                     start_drag_pos = event.pos
+
 
             if event.type == pygame.MOUSEBUTTONUP and is_dragging:
                 is_dragging = False
