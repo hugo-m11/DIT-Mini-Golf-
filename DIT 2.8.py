@@ -44,7 +44,7 @@ levels = [
         "text": "Hole 2, Par: 2"
     },
     {
-        "hole_pos": (1150, 350),
+        "hole_pos": (800, 550),
         "start_pos": (150, 350),
         "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(600, 300, 150, 300), pygame.Rect(300, 140, 200, 300), pygame.Rect(700, 300, 300, 80)],
         "text": "Hole 3, Par: 4"
@@ -84,6 +84,13 @@ levels = [
         "start_pos": (150, 350),
         "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(1050, 90, 15, 225), pygame.Rect(1050, 380, 15, 225), pygame.Rect(800, 90, 15, 140), pygame.Rect(800, 300, 15, 300), pygame.Rect(550, 90, 15, 300), pygame.Rect(550, 450, 15, 160), pygame.Rect(300, 90, 15, 100), pygame.Rect(300, 250, 15, 350)],
         "text": "Hole 9, Par: 5"
+    },
+    {
+        "hole_pos": (11501000, 350),
+        "start_pos": (100050, 350000),
+        "obstacles": [pygame.Rect(100000, 20000, 2, 1)],
+        "end_game_screen": "GAME OVER GAME OVER GAME OVER" ,
+        "text": ""
     },
 ]
 
@@ -184,6 +191,8 @@ while running:
         draw_text(f"|      Score: {player_score}", font, TEXT_COLOUR, 400, 20)
         draw_text("   |     Course Par: 32     |" , font, TEXT_COLOUR, 550, 20)
         draw_text(levels[current_level]["text"], font, TEXT_COLOUR, 850, 20)
+        if levels[current_level] == levels[-1]:
+            draw_text(levels[current_level]["end_game_screen"], font, TEXT_COLOUR, 200, 400)
     
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT:
