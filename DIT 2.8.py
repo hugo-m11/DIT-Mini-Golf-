@@ -25,11 +25,12 @@ game_over = False
 
 is_colliding = False
 
+#allows me to draw text
 def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     screen.blit(img, (x, y))
 
-
+#a list of dictionarys where all of my level data is stored
 levels = [
     { 
         "hole_pos": (1150, 350),
@@ -57,7 +58,7 @@ levels = [
     },
     {
         "hole_pos": (1150, 350),
-        "start_pos": (150, 350),
+        "start_pos": (150, 140),
         "obstacles": [pygame.Rect(90, 75, 1150, 15), pygame.Rect(1240, 75, 15, 540), pygame.Rect(90, 600, 1150, 15), pygame.Rect(75, 75, 15, 540), pygame.Rect(200, 75, 300, 450), pygame.Rect(200, 75, 300, 450), pygame.Rect(500, 75, 450, 300), pygame.Rect(1000, 400, 250, 50)],
         "text": "Hole 5, Par: 5"
     },
@@ -89,48 +90,66 @@ levels = [
         "hole_pos": (11501000, 350),
         "start_pos": (100050, 350000),
         "obstacles": [pygame.Rect(100000, 20000, 2, 1)],
-        "end_game_screen": "GAME OVER GAME OVER GAME OVER" ,
+        "end_game_screen": "GAME OVER GAME OVER GAME OVER GAME OVER GAME OVER GAME OVERGAME OVER GAME OVER GAME OVERGAME OVER GAME OVER GAME OVERGAME OVER GAME OVER GAME OVERGAME OVER GAME OVER GAME OVERGAME OVER GAME OVER GAME OVERGAME OVER GAME OVER GAME OVERGAME OVER GAME OVER GAME OVER" ,
         "text": ""
     },
 ]
 
+
+#loads the images 
 resume_image = pygame.image.load("button_resume.png").convert_alpha()
 quit_image = pygame.image.load("button_quit.png").convert_alpha()
 resume_button = button.Button(550, 200, resume_image, 1)
 quit_button = button.Button(575, 400, quit_image, 1)
 
+#checks if the ball goes in the hole 
 def check_win():
     distance = math.sqrt((player_pos.x - hole_pos[0])**2 + (player_pos.y - hole_pos[1])**2) 
     return distance < (hole_radius + 10) - BALL_RADIUS
 
-# Obstacle collision detection
+#obstacle collision detection
 def obstacle_collision():
+
+    # loop through every obstacle in the current level
     for obstacle in levels[current_level]["obstacles"]:
+        
+        ## find the closest point on the obstacle rectangle to the ball
         closest_x = max(obstacle.left, min(player_pos.x, obstacle.right))
         closest_y = max(obstacle.top, min(player_pos.y, obstacle.bottom))
 
+        #find the difference between the ball centre and that closest point, then use pythagores to find the actualy distance 
         distance_x = player_pos.x - closest_x
         distance_y = player_pos.y - closest_y
         distance = math.hypot(distance_x, distance_y)
 
+
+        #check if the centre of the ball is in contact with the obtacle 
         if distance < BALL_RADIUS and distance != 0:
             is_colliding = True
+            
+            #check how much the overlap is between the ball and the obstacle 
             overlap = BALL_RADIUS - distance
+            
+            #refect the ball away from the obstacle 
             norm_x = distance_x / distance
             norm_y = distance_y / distance
             player_pos.x += norm_x * overlap
             player_pos.y += norm_y * overlap
 
+
+            #reflect the velocity vector across the obstacle surface
             dot = ball_velocity[0] * norm_x + ball_velocity[1] * norm_y
             ball_velocity[0] -= 2 * dot * norm_x
             ball_velocity[1] -= 2 * dot * norm_y
 
+
+            #slow the ball down (similar to that of friction)
             ball_velocity[0] *= 0.5
             ball_velocity[1] *= 0.5
         else:
             is_colliding = False
 
-
+#all of this occurs on startup of the program (main game loop)
 while running:
     screen.fill(pygame.Color(51, 171, 81))
 
@@ -141,49 +160,60 @@ while running:
     hole_radius = 20
     pygame.draw.circle(screen, "black", hole_pos, hole_radius - 2)
 
+    #if the ball goes in the hole, go to the next level
     if check_win():
         current_level += 1
 
         if current_level >= len(levels):
             draw_text(f"|      Score: {player_score}", font, TEXT_COLOUR, 400, 20)
-            draw_text("   |     Course Par: 31" , font, TEXT_COLOUR, 550, 20)
+            draw_text("   |     Course Par: 32" , font, TEXT_COLOUR, 550, 20)
             
         else:
             player_pos = pygame.Vector2(levels[current_level]["start_pos"])
             ball_velocity = [0, 0]
 
-
+    #draws the aiming indicator 
     if is_dragging and start_drag_pos:
         mouse_pos = pygame.mouse.get_pos()
+
+        #calculate drag distance and store in dx and dy 
         dy = start_drag_pos[1] - mouse_pos[1]
         dx = start_drag_pos[0] - mouse_pos[0]
         distance = math.hypot(dx, dy)
-        power = min(distance / 5, max_power)
 
+        #scale the aiming indicator drag length with the power limit (whats stored in distance)
+        power = min(distance / 5, max_power)
+        
+        #normalize line length so it’s capped at a maximum
         if distance != 0:
             lenght_scale = min(distance, max_power * 25) / distance
             end_x = player_pos.x + dx * lenght_scale
             end_y = player_pos.y + dy * lenght_scale
 
+            #draw aiming line
             indicator_colour = (0, 0, 0)
             pygame.draw.line(screen, indicator_colour, (player_pos.x, player_pos.y), (end_x, end_y), 3)
 
+            #draw aiming dots to show the actual length
             num_dots = 15
             for i in range(1, num_dots + 15):
-                joshharris = i / num_dots
-                dot_x = player_pos.x + (end_x - player_pos.x) * joshharris
-                dot_y = player_pos.y + (end_y - player_pos.y) * joshharris
+                line_len_thing = i / num_dots
+                dot_x = player_pos.x + (end_x - player_pos.x) * line_len_thing
+                dot_y = player_pos.y + (end_y - player_pos.y) * line_len_thing
                 pygame.draw.circle(screen, indicator_colour, (int(dot_x), int(dot_y)), 4)
-
+    #draws the hole 
     pygame.draw.circle(screen, "white", player_pos, 9)
 
+    #shows the menu when the game is paused 
     if game_paused:
         screen.fill(pygame.Color(54, 54, 54))
         if menu_state == "main":
             if resume_button.draw(screen):
                 game_paused = False
             if quit_button.draw(screen):
-                running = False
+                 running = False
+    
+    #draws all of the little things on the top of the game
     else:
         rect = pygame.Rect(10, 15, 995, 40)
         pygame.draw.rect(screen, "black", rect)
@@ -194,61 +224,69 @@ while running:
         if levels[current_level] == levels[-1]:
             draw_text(levels[current_level]["end_game_screen"], font, TEXT_COLOUR, 200, 400)
     
+    #checks when the game is closed, or when the menu is opened 
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 game_paused = True
-
+        
+        #checks if the user clicks and aims on the ball
         if not game_paused:
             if event.type == pygame.MOUSEBUTTONDOWN:
+                #only allows the user to start aiming if it clicks on the ball
                 if math.hypot(event.pos[0] - player_pos.x, event.pos[1] - player_pos.y) < BALL_RADIUS * 2:
                     is_dragging = True
                     start_drag_pos = event.pos
 
-
+            #when you stop aiming release the ball
             if event.type == pygame.MOUSEBUTTONUP and is_dragging:
                 is_dragging = False
                 end_drag_pos = event.pos
 
+                #checks how far the user has dragged back, and stores it in "distance"
                 dx = start_drag_pos[0] - end_drag_pos[0]
                 dy = start_drag_pos[1] - end_drag_pos[1]
                 distance = math.hypot(dx, dy)
                 power = min(distance / 10, max_power)
 
+                #checks if the user has dragged back far enough 
                 if distance > 5:
                     if not is_colliding:
+                        #shoot the ball in opposite direction to drag direction
                         ball_velocity[0] = -(end_drag_pos[0] - start_drag_pos[0]) * 15 * dt
                         ball_velocity[1] = -(end_drag_pos[1] - start_drag_pos[1]) * 15 * dt
                     else:
+                        #object collison physics 
                         ball_velocity[0] = -(end_drag_pos[0] - start_drag_pos[0]) * 15 * dt * - 1
                         ball_velocity[1] = -(end_drag_pos[1] - start_drag_pos[1]) * 15 * dt * - 1
 
                     player_score += 1
-
+    
+    #object collison detection
     if not game_paused:
         noclip_thingy = 1000
         for _ in range(noclip_thingy):
             player_pos.x += ball_velocity[0] / noclip_thingy
             player_pos.y += ball_velocity[1] / noclip_thingy
 
-            #when the game is unpaused, this function checks for obstacle colliions 
+            #when the game is unpaused, this function checks for obstacle collisions
             obstacle_collision()
 
-            #checks for collsions on the left
+            #checks for collisions on the left
             if player_pos.x < BALL_RADIUS:
                 player_pos.x = BALL_RADIUS
                 ball_velocity[0] *= -0.5
-            #checks for collsions on the right 
+            #checks for collisions on the right 
             if player_pos.x > WIDTH - BALL_RADIUS:
                 player_pos.x = WIDTH - BALL_RADIUS
                 ball_velocity[0] *= -0.5
-            #checks for collsions on the bottom      
+            #checks for collisions on the bottom      
             if player_pos.y < BALL_RADIUS:
                 player_pos.y = BALL_RADIUS
                 ball_velocity[1] *= -0.5
-            #checks for collsions on the top   
+            #checks for collisions on the top   
             if player_pos.y > HEIGHT - BALL_RADIUS:
                 player_pos.y = HEIGHT - BALL_RADIUS
                 ball_velocity[1] *= -0.5
